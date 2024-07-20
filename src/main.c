@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <math.h>
+#include <uxhw.h>
 
 #define GRAVITY 9.81
 #define R 287.05
@@ -20,13 +20,6 @@ double calculate_lift(double pressure_upper, double pressure_lower, double area)
     return (pressure_upper - pressure_lower) * area;
 }
 
-double generate_random(double mean, double stddev) {
-    double u1 = (double)rand() / RAND_MAX;
-    double u2 = (double)rand() / RAND_MAX;
-    double rand_std_normal = sqrt(-2.0 * log(u1)) * sin(2.0 * M_PI * u2);
-    return mean + stddev * rand_std_normal;
-}
-
 int main() {
     // Example parameters with uncertainties
     double pressure_upper_mean = 101325;
@@ -42,12 +35,12 @@ int main() {
     double velocity_mean = 50;
     double velocity_std = 2;
 
-    // Generate random samples for each parameter
-    double pressure_upper = generate_random(pressure_upper_mean, pressure_upper_std);
-    double pressure_lower = generate_random(pressure_lower_mean, pressure_lower_std);
-    double temperature = generate_random(temperature_mean, temperature_std);
-    double humidity = generate_random(humidity_mean, humidity_std);
-    double velocity = generate_random(velocity_mean, velocity_std);
+    // Generate random samples for each parameter using Signaloid API
+    double pressure_upper = UxHwDoubleNormalDist(pressure_upper_mean, pressure_upper_std);
+    double pressure_lower = UxHwDoubleNormalDist(pressure_lower_mean, pressure_lower_std);
+    double temperature = UxHwDoubleNormalDist(temperature_mean, temperature_std);
+    double humidity = UxHwDoubleNormalDist(humidity_mean, humidity_std);
+    double velocity = UxHwDoubleNormalDist(velocity_mean, velocity_std);
 
     // Adjust pressure for elevation
     pressure_upper -= 12 * elevation / 100;
@@ -73,4 +66,4 @@ int main() {
     printf("Calculated Lift: %.2f N\n", lift);
 
     return 0;
-} 
+}
