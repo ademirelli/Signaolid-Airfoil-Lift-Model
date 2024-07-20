@@ -42,6 +42,14 @@ int main() {
     double humidity = UxHwDoubleLognormalDist(humidity_mean, humidity_std);
     double velocity = UxHwDoubleLognormalDist(velocity_mean, velocity_std);
 
+    // Debug prints to check values
+    printf("Generated Values:\n");
+    printf("Pressure Upper: %f\n", pressure_upper);
+    printf("Pressure Lower: %f\n", pressure_lower);
+    printf("Temperature: %f\n", temperature);
+    printf("Humidity: %f\n", humidity);
+    printf("Velocity: %f\n", velocity);
+
     // Adjust pressure for elevation
     pressure_upper -= 12 * elevation / 100;
     pressure_lower -= 12 * elevation / 100;
