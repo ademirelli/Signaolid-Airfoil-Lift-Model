@@ -36,11 +36,11 @@ int main() {
     double velocity_std = 2;
 
     // Generate random samples for each parameter using Signaloid API
-    double pressure_upper = UxHwDoubleNormalDist(pressure_upper_mean, pressure_upper_std);
-    double pressure_lower = UxHwDoubleNormalDist(pressure_lower_mean, pressure_lower_std);
-    double temperature = UxHwDoubleNormalDist(temperature_mean, temperature_std);
-    double humidity = UxHwDoubleNormalDist(humidity_mean, humidity_std);
-    double velocity = UxHwDoubleNormalDist(velocity_mean, velocity_std);
+    double pressure_upper = UxHwDoubleLognormalDist(pressure_upper_mean, pressure_upper_std);
+    double pressure_lower = UxHwDoubleLognormalDist(pressure_lower_mean, pressure_lower_std);
+    double temperature = UxHwDoubleLognormalDist(temperature_mean, temperature_std);
+    double humidity = UxHwDoubleLognormalDist(humidity_mean, humidity_std);
+    double velocity = UxHwDoubleLognormalDist(velocity_mean, velocity_std);
 
     // Adjust pressure for elevation
     pressure_upper -= 12 * elevation / 100;
@@ -66,4 +66,4 @@ int main() {
     printf("Calculated Lift: %.2f N\n", lift);
 
     return 0;
-}
+} 
